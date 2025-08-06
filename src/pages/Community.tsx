@@ -12,50 +12,10 @@ const Community = () => {
   const [reportText, setReportText] = useState("");
   const [reportUrl, setReportUrl] = useState("");
 
-  // Mock data for community reports
-  const recentReports = [
-    {
-      id: 1,
-      type: "email",
-      title: "Fake Microsoft Security Alert",
-      reporter: "Alice Johnson",
-      university: "State University",
-      status: "verified",
-      time: "2 hours ago",
-      description: "Received email claiming Microsoft account was compromised...",
-      votes: 15,
-    },
-    {
-      id: 2,
-      type: "url",
-      title: "Suspicious Banking Login Page",
-      reporter: "Bob Smith",
-      university: "Tech Institute",
-      status: "investigating",
-      time: "4 hours ago",
-      description: "Found this fake bank website that looks identical to real one...",
-      votes: 23,
-    },
-    {
-      id: 3,
-      type: "email",
-      title: "University IT Phishing Email",
-      reporter: "Carol Davis",
-      university: "Metro College",
-      status: "verified",
-      time: "1 day ago",
-      description: "Email pretending to be from IT asking for password reset...",
-      votes: 8,
-    },
-  ];
+  // TODO: Replace with real data from Supabase
+  const recentReports: any[] = [];
 
-  const topContributors = [
-    { name: "Alice Johnson", university: "State University", reports: 24, reputation: 156 },
-    { name: "Bob Smith", university: "Tech Institute", reports: 19, reputation: 142 },
-    { name: "Carol Davis", university: "Metro College", reports: 16, reputation: 128 },
-    { name: "David Wilson", university: "City University", reports: 12, reputation: 95 },
-    { name: "Emma Brown", university: "Science Academy", reports: 10, reputation: 87 },
-  ];
+  const topContributors: any[] = [];
 
   const handleSubmitReport = (e: React.FormEvent) => {
     e.preventDefault();
@@ -106,7 +66,7 @@ const Community = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Total Reports</p>
-                <p className="text-2xl font-bold text-primary">1,247</p>
+                <p className="text-2xl font-bold text-primary">0</p>
               </div>
               <Flag className="h-8 w-8 text-cyber-blue" />
             </div>
@@ -117,7 +77,7 @@ const Community = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Active Contributors</p>
-                <p className="text-2xl font-bold text-primary">156</p>
+                <p className="text-2xl font-bold text-primary">0</p>
               </div>
               <Users className="h-8 w-8 text-cyber-blue" />
             </div>
@@ -128,7 +88,7 @@ const Community = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Verified Threats</p>
-                <p className="text-2xl font-bold text-danger-red">89</p>
+                <p className="text-2xl font-bold text-danger-red">0</p>
               </div>
               <CheckCircle className="h-8 w-8 text-safe-green" />
             </div>
@@ -139,7 +99,7 @@ const Community = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-muted-foreground">Universities Protected</p>
-                <p className="text-2xl font-bold text-cyber-blue">23</p>
+                <p className="text-2xl font-bold text-cyber-blue">0</p>
               </div>
               <University className="h-8 w-8 text-cyber-blue" />
             </div>
@@ -147,9 +107,9 @@ const Community = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6">
         {/* Report Submission */}
-        <div className="lg:col-span-2">
+        <div>
           <Card className="shadow-lg" style={{ boxShadow: 'var(--shadow-card)' }}>
             <CardHeader>
               <CardTitle className="flex items-center space-x-2">
@@ -222,86 +182,13 @@ const Community = () => {
               <CardDescription>Latest phishing reports from the community</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {recentReports.map((report) => (
-                  <div key={report.id} className="border rounded-lg p-4 space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="flex items-center justify-center w-8 h-8 bg-cyber-blue-light rounded-full">
-                          {report.type === "email" ? (
-                            <AlertTriangle className="h-4 w-4 text-cyber-blue-dark" />
-                          ) : (
-                            <Flag className="h-4 w-4 text-cyber-blue-dark" />
-                          )}
-                        </div>
-                        <div>
-                          <h4 className="font-medium text-sm">{report.title}</h4>
-                          <p className="text-xs text-muted-foreground">
-                            By {report.reporter} from {report.university}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <Badge variant={getStatusBadge(report.status)}>
-                          {report.status}
-                        </Badge>
-                        <span className="text-xs text-muted-foreground">{report.time}</span>
-                      </div>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{report.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Button variant="outline" size="sm">
-                          <CheckCircle className="h-3 w-3 mr-1" />
-                          Verify ({report.votes})
-                        </Button>
-                        <Button variant="outline" size="sm">
-                          <MessageSquare className="h-3 w-3 mr-1" />
-                          Discuss
-                        </Button>
-                      </div>
-                      <Badge variant="outline" className="text-xs">
-                        {report.type.toUpperCase()}
-                      </Badge>
-                    </div>
-                  </div>
-                ))}
+              <div className="text-center py-8 text-muted-foreground">
+                <p>No community reports yet. Be the first to submit a report!</p>
               </div>
             </CardContent>
           </Card>
         </div>
 
-        {/* Top Contributors */}
-        <Card className="shadow-lg" style={{ boxShadow: 'var(--shadow-card)' }}>
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Users className="h-5 w-5 text-cyber-blue" />
-              <span>Top Contributors</span>
-            </CardTitle>
-            <CardDescription>Community members making a difference</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {topContributors.map((contributor, index) => (
-                <div key={index} className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <div className="flex items-center justify-center w-8 h-8 bg-cyber-blue-light rounded-full">
-                      <span className="text-xs font-bold text-cyber-blue-dark">{index + 1}</span>
-                    </div>
-                    <div>
-                      <p className="font-medium text-sm">{contributor.name}</p>
-                      <p className="text-xs text-muted-foreground">{contributor.university}</p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-medium text-primary">{contributor.reports} reports</p>
-                    <p className="text-xs text-muted-foreground">{contributor.reputation} rep</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );
