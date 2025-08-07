@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
-import { AlertTriangle, Shield, Mail, Link as LinkIcon, Scan, CheckCircle, XCircle, AlertCircle } from "lucide-react";
+import { AlertTriangle, Shield, Mail, Link as LinkIcon, Scan, CheckCircle, XCircle, AlertCircle, Globe, MapPin } from "lucide-react";
 
 const Dashboard = () => {
   const [emailText, setEmailText] = useState("");
@@ -233,6 +233,78 @@ const Dashboard = () => {
               )}
             </TabsContent>
           </Tabs>
+        </CardContent>
+      </Card>
+
+      {/* Threat Origin Section */}
+      <Card className="shadow-lg" style={{ boxShadow: 'var(--shadow-card)' }}>
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <Globe className="h-5 w-5 text-cyber-blue" />
+            <span>Threat Origin Map</span>
+          </CardTitle>
+          <CardDescription>
+            Real-time visualization of global threat sources and attack patterns
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {/* Map Placeholder */}
+            <div className="relative w-full h-96 bg-card border border-border rounded-lg overflow-hidden">
+              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-background to-card">
+                <div className="text-center space-y-4">
+                  <Globe className="h-16 w-16 text-cyber-blue mx-auto" />
+                  <div>
+                    <h3 className="text-lg font-semibold text-primary">World Map Integration</h3>
+                    <p className="text-sm text-muted-foreground max-w-md">
+                      Connect your Mapbox account to display real-time threat origins and geographic attack patterns
+                    </p>
+                  </div>
+                  <Button variant="outline" className="mt-4">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    Setup Map Integration
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Threat Statistics */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <Card>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Active Threat Sources</p>
+                      <p className="text-xl font-bold text-danger-red">0</p>
+                    </div>
+                    <AlertTriangle className="h-6 w-6 text-danger-red" />
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Countries Monitored</p>
+                      <p className="text-xl font-bold text-cyber-blue">0</p>
+                    </div>
+                    <Globe className="h-6 w-6 text-cyber-blue" />
+                  </div>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Blocked Locations</p>
+                      <p className="text-xl font-bold text-safe-green">0</p>
+                    </div>
+                    <Shield className="h-6 w-6 text-safe-green" />
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </CardContent>
       </Card>
     </div>
