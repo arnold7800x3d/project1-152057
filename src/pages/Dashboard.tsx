@@ -67,42 +67,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Today's Scans</p>
-                <p className="text-2xl font-bold text-primary">0</p>
-              </div>
-              <Scan className="h-8 w-8 text-cyber-blue" />
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Threats Blocked</p>
-                <p className="text-2xl font-bold text-danger-red">0</p>
-              </div>
-              <AlertTriangle className="h-8 w-8 text-danger-red" />
-            </div>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">Safe Communications</p>
-                <p className="text-2xl font-bold text-safe-green">0</p>
-              </div>
-              <CheckCircle className="h-8 w-8 text-safe-green" />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
 
       {/* Analysis Interface */}
       <Card className="shadow-lg" style={{ boxShadow: 'var(--shadow-card)' }}>
