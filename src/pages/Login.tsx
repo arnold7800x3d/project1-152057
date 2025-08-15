@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,12 +9,42 @@ import { Shield, Mail, Lock } from "lucide-react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Login logic will be implemented after Supabase integration
-    console.log("Login attempted with:", { email, password });
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/auth/login/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Login failed:", errorData);
+      alert(errorData.detail || "Invalid email or password");
+      return;
+    }
+
+    const data = await response.json();
+    console.log("Login success:", data);
+
+    // save tokens
+    localStorage.setItem("accessToken", data.access); 
+    localStorage.setItem("refreshToken", data.refresh);
+
+    console.log("Login success:", data);
+    navigate("/dashboard");
+  } catch (error) {
+    console.error("Network error:", error);
+    alert("Could not connect to the server");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-cyber-blue-light/20 p-4">

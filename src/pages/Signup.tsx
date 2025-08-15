@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,6 +15,8 @@ const Signup = () => {
     confirmPassword: ""
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
       ...prev,
@@ -22,11 +24,43 @@ const Signup = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Signup logic will be implemented after Supabase integration
-    console.log("Signup attempted with:", formData);
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://127.0.0.1:8000/auth/register/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: formData.email,
+        username: formData.name,  
+        password: formData.password,
+        university: formData.university,
+        role: "Student" 
+      }),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Signup failed:", errorData);
+      alert(JSON.stringify(errorData) || "Signup failed");
+      return;
+    }
+
+    const data = await response.json();
+    console.log("Signup success:", data);
+    alert("Account created successfully! Proceed to login");
+    navigate("/login");
+  } catch (error) {
+    console.error("Network error:", error);
+    alert("Could not connect to the server");
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-cyber-blue-light/20 p-4">
